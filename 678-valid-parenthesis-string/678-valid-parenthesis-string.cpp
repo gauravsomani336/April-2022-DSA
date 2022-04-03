@@ -19,10 +19,10 @@ public:
             return false;
         }
         
-        if(s[cur]==')' && count==0)
-        {
-            return false;
-        }
+        // if(s[cur]==')' && count==0)
+        // {
+        //     return false;
+        // }
         
         string curkey= to_string(cur)+"-"+to_string(count);
         if(dp.find(curkey)!=dp.end())
