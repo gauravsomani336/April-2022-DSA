@@ -35,7 +35,7 @@ public:
         {
             ways= solve(s,cur+1, count+1, m,dp);
         }
-        else if(s[cur]==')' )
+        else if(s[cur]==')' && count!=0)
         {
             ways= solve(s, cur+1, count-1, m,dp);
         }
