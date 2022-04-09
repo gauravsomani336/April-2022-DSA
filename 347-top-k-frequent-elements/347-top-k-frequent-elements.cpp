@@ -1,37 +1,34 @@
 class Solution {
 public:
-    struct comp{
-        
-        bool operator()(pair<int,int>&a,  pair<int,int>&b)
-        {
-            return a.second>b.second;
-        }
-    }cmpare;
     vector<int> topKFrequent(vector<int>& nums, int k) {
-        vector<int>res;
+       int size=nums.size()-k;
         unordered_map<int,int>mp;
+        vector<int>res;
         for(auto it: nums)
         {
             mp[it]+=1;
         }
         
-        vector<pair<int,int>>vec;
+        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>> >pq;
+        
         for(auto it: mp)
         {
-            vec.push_back(it);
+             pq.push({it.second, it.first});
+            if( pq.size()>k)
+            {
+                pq.pop();
+            }
+            
+           
         }
         
-        sort(vec.begin(), vec.end(), cmpare);
-        
-       for(auto it: vec)
+        while(!pq.empty())
         {
-            if(k>0)
-            {
-                res.push_back(it.first);
-                k-=1;
-            }
+            res.push_back(pq.top().second);
+            pq.pop();
         }
         
         return res;
+        
     }
 };
