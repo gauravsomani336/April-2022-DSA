@@ -1,48 +1,36 @@
 class Solution {
 public:
-    int factorial(int n)
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<int>perm;
+        vector<vector<int>>res;
+        vector<bool>used(nums.size(), false);
+        solve(nums,perm,res, used);
+        return res;
+    }
+    
+   void solve(vector<int>& nums, vector<int>& perm, vector<vector<int>>&res,vector<bool>&used )
     {
-        if(n<=1)
+        if(perm.size()==nums.size())
         {
-            return n;        
+            res.push_back(perm);
+            return;
         }
         
-        
-       int ans=n*factorial(n-1);
-        return ans;
-    }
-    vector<vector<int>> permute(vector<int>& nums) {
-        int n=nums.size();
-        int x= factorial(n);
-        
-        vector<vector<int>>res;
-        
-        for(int i=0;i<x;i++)
+        for(int i=0;i<nums.size();i++)
         {
-            int idx=n-2;
-            while(idx>=0 && nums[idx]>=nums[idx+1])
+            if(!used[i])   //valid choices
             {
-                idx-=1;
-            }
-            
-            int x=n-1;
-         if(idx>=0)
-         {
-            while(i>=0)
-            {
-                if(nums[x]>nums[idx])
-                {
-                    swap(nums[x],nums[idx]);
-                    break;
-                }
-                x-=1;
+                //make choices
+                used[i]=true;
+                perm.push_back(nums[i]);
+                
+                solve(nums,perm, res, used);
+                //undo choices
+                
+                used[i]=false;
+                perm.pop_back();
                 
             }
-         }
-            reverse(nums.begin()+idx+1, nums.end());
-            
-            res.push_back(nums);
         }
-        return res;
     }
 };
