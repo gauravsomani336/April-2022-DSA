@@ -1,60 +1,62 @@
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        int m= matrix.size();
-        int n= matrix[0].size();
+        int n=matrix[0].size();
+        int m=matrix.size();
         
-        int top=0;
-        int bot=m-1;
+        int lo=0;
+        int hi=matrix.size()-1;
         
-        int mi= top+(bot-top)/2;
+        int mi= lo+(hi-lo)/2;
         
-        while(top<=bot)
+        while(lo<=hi)
         {
-            if(target> matrix[mi][n-1])
+            if(target< matrix[mi][0])
             {
-                top=mi+1;
+                hi=mi-1;
             }
-            else if(target< matrix[mi][0])
+            
+            else if(target > matrix[mi][n-1])
             {
-                bot=mi-1;
+                lo=mi+1;
             }
             else
             {
                 break;
             }
             
-            mi=top+(bot-top)/2;
+            mi= lo+(hi-lo)/2;
         }
         
-        if(!(top<=bot))
+        if(!(lo<=hi))
         {
             return false;
         }
         
-        int l=0;
-        int r=n-1;
+        int top=0;
+        int bot=n-1;
         
-        int mid =l+(r-l)/2;
+        int mid=top +(bot-top)/2;
         
-        while(l<=r)
+        while(top<=bot)
         {
-            if(target > matrix[mi][mid])
-            {
-                l=mid+1;
-            }
-            else if(target < matrix[mi][mid])
-            {
-                r=mid-1;
-            }
-            else
+            if(target == matrix[mi][mid])
             {
                 return true;
             }
+            else if(target < matrix[mi][mid])
+            {
+                bot= mid-1;
+            }
+            else if(target > matrix[mi][mid])
+            {
+                top =mid+1;
+            }
             
-            mid= l+(r-l)/2;
+            mid= top +(bot-top)/2;
         }
         
         return false;
+        
     }
 };
