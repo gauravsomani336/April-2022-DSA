@@ -30,7 +30,12 @@ public:
     
     double dfs(string s , string d, unordered_map<string , bool>&visited)
     {
-        if(graph.find(s)==graph.end())
+        // if(graph.find(s)==graph.end())
+        // {
+        //     return -1.0;
+        // }
+        
+        if(!(graph.find(s)!=graph.end()   &&   graph.find(d)!=graph.end()))
         {
             return -1.0;
         }
