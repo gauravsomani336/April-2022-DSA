@@ -12,7 +12,7 @@ public:
             mp[s[end]]+=1;
            mostRepeating= max(mostRepeating, mp[s[end]]);
             
-            if(end-start+1- mostRepeating > k)
+            while(end-start+1- mostRepeating > k)
             {
                 mp[s[start]]-=1;
                 start+=1;
