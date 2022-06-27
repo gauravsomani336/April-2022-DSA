@@ -1,64 +1,74 @@
 class Solution {
 public:
-    int firstOcc(vector<int>&nums, int t)
-    {
-        int s=0;
-        int e=nums.size()-1;
-        int mid=s+(e-s)/2;
-        int res=-1;
-        
-        while(s<=e)
-        {
-               if(nums[mid]==t)
-                {
-                    res=mid;
-                    e=mid-1;
-                }
-                else if(nums[mid]> t)
-                {
-                    e=mid-1;
-                }
-                else if(nums[mid]<t)
-                {
-                    s=mid+1;
-                }
-
-                    mid=s+(e-s)/2;
-        }
-        return res;        
-    }
-    int lastOcc(vector<int>&nums, int t)
-    {
-        int s=0;
-        int e=nums.size()-1;
-        int mid=s+(e-s)/2;
-        int res=-1;
-        
-        while(s<=e)
-        {
-               if(nums[mid]==t)
-                {
-                    res=mid;
-                    s=mid+1;
-                }
-                else if(nums[mid]> t)
-                {
-                    e=mid-1;
-                }
-                else if(nums[mid]<t)
-                {
-                    s=mid+1;
-                }
-
-                    mid=s+(e-s)/2;
-        }
-        return res;        
-    }
     vector<int> searchRange(vector<int>& nums, int target) {
-        vector<int>ans(2,0);
-        ans[0]=firstOcc(nums, target);
-        ans[1]=lastOcc(nums, target);
+        int n=nums.size();
+        if(n<1)
+        {
+            return {-1,-1};
+        }
         
-        return ans;
+        vector<int>res={-1,-1};
+        
+        res[0]= firstOcur(nums, target);
+        res[1]= lastOcur(nums, target);
+        
+        return res;
+        
+    }
+    
+    int firstOcur(vector<int>&nums, int target)
+    {
+        int st=0;
+        int end=nums.size()-1;
+        int first=-1;
+        
+        while(st<=end)
+        {
+            int mid=st+(end-st)/2;
+            
+            if(nums[mid]==target)
+            {
+                first=mid;
+                end=mid-1;
+            }
+            else if(nums[mid]>target)
+            {
+                end=mid-1;
+            }
+            else
+            {
+                st=mid+1;
+            }
+        }
+        
+        return first;
+    }
+    
+     int lastOcur(vector<int>&nums, int target)
+    {
+        int st=0;
+        int end=nums.size()-1;
+        int last=-1;
+        
+        while(st<=end)
+        {
+            int mid=st+(end-st)/2;
+            
+            if(nums[mid]==target)
+            {
+                last=mid;
+                st=mid+1;
+            }
+            else if(nums[mid]>target)
+            {
+                end=mid-1;
+            }
+            else
+            {
+                st=mid+1;
+            }
+        }
+        
+        return last;
     }
 };
